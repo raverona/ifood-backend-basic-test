@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${currentWeather.name} + '\'s current weather'"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" type="image/png" th:href="'https://openweathermap.org/img/w/' + ${currentWeather.weather[0].icon} + '.png'" />
+</head>
+<body>
+    <p th:text="'City name:        ' + ${currentWeather.name} + ''" />
+    <p th:text="'Country:          ' + ${currentWeather.sys.country} + ''" />
+    <p th:text="'Temperature:      ' + ${currentWeather.main.temp} + '°C'" />
+    <p th:text="'Min temperature:  ' + ${currentWeather.main.temp_min} + '°C'" />
+    <p th:text="'Max temperature:  ' + ${currentWeather.main.temp_max} + '°C'" />
+    <p></p>
+    <p th:text="'Information fetched at: ' + ${date} + '!'" />
+</body>
+</html>

@@ -1,35 +1,32 @@
 package com.ifood.services;
 
-import net.aksingh.owmjapis.core.OWM;
-import net.aksingh.owmjapis.model.CurrentWeather;
+import com.ifood.models.OpenWeatherMapResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class OpenWeatherMapService {
-    private OWM owm;
+    private RestTemplate restTemplate;
 
-    public OpenWeatherMapService(@Value("${openweathermap.apikey}") String APIkey) {
-        owm = new OWM(APIkey);
+    @Value("${openweathermap.apikey}")
+    String APIkey;
+
+    public OpenWeatherMapService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
-    public CurrentWeather getWeatherByCityName(String cityName) {
-        CurrentWeather currentWeather = null;
+    public OpenWeatherMapResponse getWeatherByCityName(String cityName) {
+        OpenWeatherMapResponse openWeatherMapResponse;
         try {
-            currentWeather = owm.currentWeatherByCityName(cityName);
+            openWeatherMapResponse = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIkey, OpenWeatherMapResponse.class);
         } catch (Exception e) {
-            e.printStackTrace();
+            return null;
         }
-        return currentWeather;
+        return openWeatherMapResponse;
     }
 
-    public CurrentWeather getWeatherByCityId(int cityId) {
-        CurrentWeather currentWeather = null;
-        try {
-            currentWeather = owm.currentWeatherByCityId(cityId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return currentWeather;
+    public OpenWeatherMapResponse getWeatherByCityId(String cityId) {
+        return restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=" + APIkey, OpenWeatherMapResponse.class);
     }
 }

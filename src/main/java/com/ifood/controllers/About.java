@@ -1,12 +1,12 @@
 package com.ifood.controllers;
 
+import com.ifood.models.OpenWeatherMapResponse;
 import com.ifood.models.ServiceStatus;
 import com.ifood.services.OpenWeatherMapService;
-import net.aksingh.owmjapis.model.CurrentWeather;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
@@ -19,14 +19,13 @@ public class About {
 
     private OpenWeatherMapService openWeatherMapService;
 
-    @Autowired
     public About(OpenWeatherMapService openWeatherMapService) {
         this.openWeatherMapService = openWeatherMapService;
     }
 
-    @RequestMapping(path = "/about", produces = "application/json")
+    @RequestMapping(path = "/about", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public String about() {
+    public ServiceStatus about() {
         if (serviceStatus == null) {
            serviceStatus = checkStatus();
         }
@@ -38,12 +37,12 @@ public class About {
                 serviceStatus = checkStatus();
             }
         }
-        return serviceStatus.toString();
+        return serviceStatus;
     }
 
     private ServiceStatus checkStatus() {
-        CurrentWeather currentWeather = openWeatherMapService.getWeatherByCityName("London");
-        if (currentWeather == null || !currentWeather.hasRespCode() || currentWeather.getRespCode() != 200)
+        OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName("London");
+        if (currentWeather == null)
             return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API is not responding, dark times may be ahead.");
         else
             return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API seems to be available, everything should work fine.");

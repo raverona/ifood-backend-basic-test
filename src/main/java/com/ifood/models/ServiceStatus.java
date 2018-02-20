@@ -13,12 +13,28 @@ public class ServiceStatus {
         this.nextCheck = "This data was just checked with OpenWeatherMap API!";
     }
 
-    public void setNextCheck(String nextCheck) {
-        this.nextCheck = nextCheck;
-    }
-
     public Date getLastCheck() {
         return lastCheck;
+    }
+
+    public void setLastCheck(Date lastCheck) {
+        this.lastCheck = lastCheck;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getNextCheck() {
+        return nextCheck;
+    }
+
+    public void setNextCheck(String nextCheck) {
+        this.nextCheck = nextCheck;
     }
 
     @Override
