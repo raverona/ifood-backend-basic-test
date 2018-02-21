@@ -28,11 +28,6 @@ public class Weather {
             model.addAttribute("cityName", cityName);
             return "notFound";
         }
-        //testar se tem todos os atributos que eu quero
-        if (currentWeather.getMain() == null) {
-            model.addAttribute("cityName", cityName);
-            return "errorOnGettingWeatherInfo";
-        }
         currentWeather.getMain().setTemp(MathUtils.round(TemperatureConverter.kelvinToCelsius(currentWeather.getMain().getTemp()), 1));
         currentWeather.getMain().setTemp_min(MathUtils.round(TemperatureConverter.kelvinToCelsius(currentWeather.getMain().getTemp_min()), 1));
         currentWeather.getMain().setTemp_max(MathUtils.round(TemperatureConverter.kelvinToCelsius(currentWeather.getMain().getTemp_max()), 1));
