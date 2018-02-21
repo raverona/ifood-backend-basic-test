@@ -5,11 +5,17 @@ import java.util.Date;
 public class ServiceStatus {
     private Date lastCheck;
     private String status;
-    private String nextCheck;
+    private Date nextCheck;
 
     public ServiceStatus(Date lastCheck, String status) {
         this.lastCheck = lastCheck;
         this.status = status;
+    }
+
+    public ServiceStatus(Date lastCheck, String status, Date nextCheck) {
+        this.lastCheck = lastCheck;
+        this.status = status;
+        this.nextCheck = nextCheck;
     }
 
     public Date getLastCheck() {
@@ -28,11 +34,11 @@ public class ServiceStatus {
         this.status = status;
     }
 
-    public String getNextCheck() {
+    public Date getNextCheck() {
         return nextCheck;
     }
 
-    public void setNextCheck(String nextCheck) {
+    public void setNextCheck(Date nextCheck) {
         this.nextCheck = nextCheck;
     }
 

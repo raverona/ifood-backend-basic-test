@@ -14,8 +14,6 @@ import java.util.Date;
 
 @Controller
 public class About {
-    @Value("${openweathermap.apitestinterval.inminutes}")
-    private int openWeatherMapApiTestIntervalInMinutes;
     private static ServiceStatus serviceStatus;
 
     private OpenWeatherMapService openWeatherMapService;
@@ -31,26 +29,16 @@ public class About {
         return serviceStatus;
     }
 
-    @Scheduled(fixedRate = 10000, initialDelay = 10000)
+    @Scheduled(fixedRateString = "${openweathermap.apitestinterval.inmilliseconds}", initialDelay = 5000)
     private void renewServiceStatus() {
-        if (serviceStatus == null) {
-           serviceStatus = checkStatus();
-        }
-        else {
-            long diff = (new Date().getTime() - serviceStatus.getLastCheck().getTime()) / (60 * 1000) % 60;
-            if (diff < openWeatherMapApiTestIntervalInMinutes) {
-                serviceStatus.setNextCheck("It's been " + diff + " minute(s) since OpenWeatherMap API availability was last checked, a new availability check will be performed in " + (openWeatherMapApiTestIntervalInMinutes - diff) + " minute(s)");
-            } else {
-                serviceStatus = checkStatus();
-            }
-        }
+        serviceStatus = checkStatus();
     }
 
     private ServiceStatus checkStatus() {
         OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName("London");
         if (currentWeather == null)
-            return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API is not responding, dark times may be ahead.");
+            return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API is not responding, dark times may be ahead.", new Date(System.currentTimeMillis()+5*60*1000));
         else
-            return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API seems to be available, everything should work fine.");
+            return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API seems to be available, everything should work fine.", new Date(System.currentTimeMillis()+5*60*1000));
     }
 }
