@@ -3,8 +3,10 @@ package com.ifood.models.openWeatherMapResponse.responseComponents;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Snow {
+public class Snow implements Serializable {
     @JsonProperty("3h")
     private float threeH;
 

@@ -1,8 +1,10 @@
 package com.ifood.models.openWeatherMapResponse.responseComponents;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Main {
+public class Main implements Serializable {
     private double temp;
     private int pressure;
     private int humidity;

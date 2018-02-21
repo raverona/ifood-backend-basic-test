@@ -2,8 +2,10 @@ package com.ifood.models.openWeatherMapResponse.responseComponents;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Sys {
+public class Sys implements Serializable {
     private String country;
     private int sunrise;
     private int sunset;

@@ -1,8 +1,10 @@
 package com.ifood.models.openWeatherMapResponse.responseComponents;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Clouds {
+public class Clouds implements Serializable{
     private int all;
 
     public int getAll() {

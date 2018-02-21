@@ -2,6 +2,7 @@ package com.ifood.services;
 
 import com.ifood.models.openWeatherMapResponse.OpenWeatherMapResponse;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,6 +17,7 @@ public class OpenWeatherMapService {
         this.restTemplate = restTemplate;
     }
 
+    @Cacheable(value = "cityWeather", key = "#cityName", condition = "#cityName != 'Wells'")
     public OpenWeatherMapResponse getWeatherByCityName(String cityName) {
         OpenWeatherMapResponse openWeatherMapResponse;
         try {
