@@ -1,9 +1,10 @@
 package com.ifood.controllers;
 
-import com.ifood.models.OpenWeatherMapResponse;
+import com.ifood.models.openWeatherMapResponse.OpenWeatherMapResponse;
 import com.ifood.models.ServiceStatus;
 import com.ifood.services.OpenWeatherMapService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,19 +26,24 @@ public class About {
 
     @RequestMapping(path = "/about", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ServiceStatus about() {
+    public ServiceStatus serviceStatus() {
+        if (serviceStatus == null) return new ServiceStatus(new Date(), "Status not available, please try again in a few seconds.");
+        return serviceStatus;
+    }
+
+    @Scheduled(fixedRate = 10000, initialDelay = 10000)
+    private void renewServiceStatus() {
         if (serviceStatus == null) {
            serviceStatus = checkStatus();
         }
         else {
             long diff = (new Date().getTime() - serviceStatus.getLastCheck().getTime()) / (60 * 1000) % 60;
             if (diff < openWeatherMapApiTestIntervalInMinutes) {
-                serviceStatus.setNextCheck("It's been " + diff + " minute(s) since OpenWeatherMap API availability was last checked, check again in " + (openWeatherMapApiTestIntervalInMinutes - diff) + " minute(s)");
+                serviceStatus.setNextCheck("It's been " + diff + " minute(s) since OpenWeatherMap API availability was last checked, a new availability check will be performed in " + (openWeatherMapApiTestIntervalInMinutes - diff) + " minute(s)");
             } else {
                 serviceStatus = checkStatus();
             }
         }
-        return serviceStatus;
     }
 
     private ServiceStatus checkStatus() {

@@ -1,5 +1,8 @@
-package com.ifood.models;
+package com.ifood.models.openWeatherMapResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ifood.models.openWeatherMapResponse.responseComponents.*;
+
+import java.util.Arrays;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenWeatherMapResponse {
@@ -110,5 +113,23 @@ public class OpenWeatherMapResponse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "OpenWeatherMapResponse{" +
+                "coord=" + coord +
+                ", weather=" + Arrays.toString(weather) +
+                ", main=" + main +
+                ", visibility=" + visibility +
+                ", wind=" + wind +
+                ", clouds=" + clouds +
+                ", rain=" + rain +
+                ", snow=" + snow +
+                ", dt=" + dt +
+                ", sys=" + sys +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

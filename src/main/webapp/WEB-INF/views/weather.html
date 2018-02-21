@@ -12,11 +12,12 @@
     <p th:text="'Min temperature:      ' + ${currentWeather.main.temp_min} + '°C'" />
     <p th:text="'Max temperature:      ' + ${currentWeather.main.temp_max} + '°C'" />
     <p th:text="'Humidity:             ' + ${currentWeather.main.humidity} + '%'" />
+    <p th:text="'Atmospheric pressure: ' + ${currentWeather.main.pressure} + 'hPa'" />
     <p th:text="'Wind speed:           ' + ${currentWeather.wind.speed} + 'm/s'" />
     <p th:text="'Wind direction:       ' + ${currentWeather.wind.deg} + '°'" />
     <p th:text="'Cloudiness:           ' + ${currentWeather.clouds.all} + '%'" />
     <p th:text="'Weather description:  ' + ${currentWeather.weather[0].description} + ''" />
-    <p></p>
+    <img th:src="'https://openweathermap.org/img/w/' + ${currentWeather.weather[0].icon} + '.png'"></img>
     <p th:text="'Information fetched at: ' + ${date} + '!'" />
 </body>
 </html>

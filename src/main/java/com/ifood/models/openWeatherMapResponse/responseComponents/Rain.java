@@ -1,10 +1,10 @@
-package com.ifood.models;
+package com.ifood.models.openWeatherMapResponse.responseComponents;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Snow {
+public class Rain {
     @JsonProperty("3h")
     private float threeH;
 
@@ -14,5 +14,12 @@ public class Snow {
 
     public void setThreeH(float threeH) {
         this.threeH = threeH;
+    }
+
+    @Override
+    public String toString() {
+        return "Rain{" +
+                "threeH=" + threeH +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package com.ifood.services;
 
-import com.ifood.models.OpenWeatherMapResponse;
+import com.ifood.models.openWeatherMapResponse.OpenWeatherMapResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,9 +24,5 @@ public class OpenWeatherMapService {
             return null;
         }
         return openWeatherMapResponse;
-    }
-
-    public OpenWeatherMapResponse getWeatherByCityId(String cityId) {
-        return restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&appid=" + APIkey, OpenWeatherMapResponse.class);
     }
 }

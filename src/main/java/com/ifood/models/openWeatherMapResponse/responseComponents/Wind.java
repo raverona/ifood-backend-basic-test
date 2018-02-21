@@ -1,4 +1,4 @@
-package com.ifood.models;
+package com.ifood.models.openWeatherMapResponse.responseComponents;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,5 +21,13 @@ public class Wind {
 
     public void setDeg(int deg) {
         this.deg = deg;
+    }
+
+    @Override
+    public String toString() {
+        return "Wind{" +
+                "speed=" + speed +
+                ", deg=" + deg +
+                '}';
     }
 }

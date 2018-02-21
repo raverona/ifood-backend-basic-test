@@ -1,4 +1,4 @@
-package com.ifood.models;
+package com.ifood.models.openWeatherMapResponse.responseComponents;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -65,5 +65,18 @@ public class Main {
 
     public void setGrnd_level(double grnd_level) {
         this.grnd_level = grnd_level;
+    }
+
+    @Override
+    public String toString() {
+        return "Main{" +
+                "temp=" + temp +
+                ", pressure=" + pressure +
+                ", humidity=" + humidity +
+                ", temp_min=" + temp_min +
+                ", temp_max=" + temp_max +
+                ", sea_level=" + sea_level +
+                ", grnd_level=" + grnd_level +
+                '}';
     }
 }

@@ -10,7 +10,6 @@ public class ServiceStatus {
     public ServiceStatus(Date lastCheck, String status) {
         this.lastCheck = lastCheck;
         this.status = status;
-        this.nextCheck = "This data was just checked with OpenWeatherMap API!";
     }
 
     public Date getLastCheck() {

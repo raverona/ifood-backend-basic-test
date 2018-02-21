@@ -1,4 +1,4 @@
-package com.ifood.models;
+package com.ifood.models.openWeatherMapResponse.responseComponents;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -30,5 +30,14 @@ public class Sys {
 
     public void setSunset(int sunset) {
         this.sunset = sunset;
+    }
+
+    @Override
+    public String toString() {
+        return "Sys{" +
+                "country='" + country + '\'' +
+                ", sunrise=" + sunrise +
+                ", sunset=" + sunset +
+                '}';
     }
 }

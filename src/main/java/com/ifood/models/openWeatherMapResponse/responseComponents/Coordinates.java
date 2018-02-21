@@ -1,4 +1,4 @@
-package com.ifood.models;
+package com.ifood.models.openWeatherMapResponse.responseComponents;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,5 +20,13 @@ public class Coordinates {
 
     public void setLat(double lat) {
         this.lat = lat;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" +
+                "lon=" + lon +
+                ", lat=" + lat +
+                '}';
     }
 }
