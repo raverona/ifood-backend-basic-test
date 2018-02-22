@@ -1,9 +1,9 @@
 package com.ifood.controllers;
 
-import com.ifood.models.openWeatherMapResponse.OpenWeatherMapResponse;
 import com.ifood.models.ServiceStatus;
+import com.ifood.models.openWeatherMapResponse.OpenWeatherMapResponse;
 import com.ifood.services.OpenWeatherMapService;
-import org.springframework.beans.factory.annotation.Value;
+import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import java.util.Date;
 
 @Controller
 public class About {
+    private final static Logger logger = Logger.getLogger(About.class);
     private static ServiceStatus serviceStatus;
 
     private OpenWeatherMapService openWeatherMapService;
@@ -35,6 +36,7 @@ public class About {
     }
 
     private ServiceStatus checkStatus() {
+        logger.info("Renewing service status");
         OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName("wells");
         if (currentWeather == null)
             return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API is not responding, dark times may be ahead.", new Date(System.currentTimeMillis()+5*60*1000));
