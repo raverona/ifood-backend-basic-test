@@ -23,16 +23,16 @@ public class Weather {
 
     @RequestMapping(path = "/weather/{cityName}", method = RequestMethod.GET)
     public String getWeatherByCityNameInPath(@PathVariable("cityName") String cityName, Model model) {
-        OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName(cityName);
+        System.out.println("Fetching weather data for city: " + cityName);
+        OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName(cityName.toLowerCase());
+
         if (currentWeather == null) {
             model.addAttribute("cityName", cityName);
             return "notFound";
         }
-        currentWeather.getMain().setTemp(MathUtils.round(TemperatureConverter.kelvinToCelsius(currentWeather.getMain().getTemp()), 1));
-        currentWeather.getMain().setTemp_min(MathUtils.round(TemperatureConverter.kelvinToCelsius(currentWeather.getMain().getTemp_min()), 1));
-        currentWeather.getMain().setTemp_max(MathUtils.round(TemperatureConverter.kelvinToCelsius(currentWeather.getMain().getTemp_max()), 1));
+
         model.addAttribute("currentWeather", currentWeather);
-        model.addAttribute("date", Date.from( Instant.ofEpochSecond(currentWeather.getDt()) ));
+        model.addAttribute("date", Date.from(Instant.ofEpochSecond(currentWeather.getDt())));
         return "weather";
     }
 }

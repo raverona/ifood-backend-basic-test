@@ -35,7 +35,7 @@ public class About {
     }
 
     private ServiceStatus checkStatus() {
-        OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName("Wells");
+        OpenWeatherMapResponse currentWeather = openWeatherMapService.getWeatherByCityName("wells");
         if (currentWeather == null)
             return serviceStatus = new ServiceStatus(new Date(), "OpenWeatherMap API is not responding, dark times may be ahead.", new Date(System.currentTimeMillis()+5*60*1000));
         else
