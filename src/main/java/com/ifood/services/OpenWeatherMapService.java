@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -21,15 +22,16 @@ public class OpenWeatherMapService {
     }
 
     @Cacheable(value = "cityWeather", key = "#cityName", condition = "#cityName != 'wells'", unless = "#result == null")
-    public OpenWeatherMapResponse getWeatherByCityName(String cityName) {
+    public OpenWeatherMapResponse getWeatherByCityName(String cityName) throws RestClientException {
         OpenWeatherMapResponse openWeatherMapResponse;
-        try {
-            logger.info("Getting new weather information for city: " + cityName.toLowerCase());
-            openWeatherMapResponse = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName.toLowerCase() + "&appid=" + APIkey, OpenWeatherMapResponse.class);
-            TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse, TemperatureConverter.kelvinToCelsius);
-        } catch (Exception e) {
-            return null;
-        }
+        logger.info("Getting new weather information for city: " + cityName.toLowerCase());
+        openWeatherMapResponse = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName.toLowerCase() + "&appid=" + APIkey, OpenWeatherMapResponse.class);
+        TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse, TemperatureConverter.kelvinToCelsius);
         return openWeatherMapResponse;
+    }
+
+    public OpenWeatherMapResponse googleFallback(String cityName) {
+        logger.error("Failed on getting new weather information for city: " + cityName.toLowerCase());
+        return null;
     }
 }
