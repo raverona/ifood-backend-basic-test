@@ -35,6 +35,6 @@ public class Weather {
 
     public String googleFallback(String cityName, Model model) {
         logger.error("Failed on getting weather information for city: " + cityName.toLowerCase());
-        return "redirect:https://www.google.com.br/search?hl=en&q=weather+wells";
+        return "redirect:https://www.google.com.br/search?hl=en&q=weather+" + cityName;
     }
 }
