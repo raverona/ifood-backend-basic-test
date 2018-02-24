@@ -31,9 +31,4 @@ public class OpenWeatherMapService {
         openWeatherMapResponse.getMain().setTemp_max(TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse.getMain().getTemp_max(), TemperatureConverter.kelvinToCelsius));
         return openWeatherMapResponse;
     }
-
-    public OpenWeatherMapResponse googleFallback(String cityName) {
-        logger.error("Failed on getting new weather information for city: " + cityName.toLowerCase());
-        return null;
-    }
 }
