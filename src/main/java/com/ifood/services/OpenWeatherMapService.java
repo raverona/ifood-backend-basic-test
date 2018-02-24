@@ -26,7 +26,9 @@ public class OpenWeatherMapService {
         OpenWeatherMapResponse openWeatherMapResponse;
         logger.info("Getting new weather information for city: " + cityName.toLowerCase());
         openWeatherMapResponse = restTemplate.getForObject("http://api.openweathermap.org/data/2.5/weather?q=" + cityName.toLowerCase() + "&appid=" + APIkey, OpenWeatherMapResponse.class);
-        TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse, TemperatureConverter.kelvinToCelsius);
+        openWeatherMapResponse.getMain().setTemp(TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse.getMain().getTemp(), TemperatureConverter.kelvinToCelsius));
+        openWeatherMapResponse.getMain().setTemp_min(TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse.getMain().getTemp_min(), TemperatureConverter.kelvinToCelsius));
+        openWeatherMapResponse.getMain().setTemp_max(TemperatureConverter.convertWeatherTemperature(openWeatherMapResponse.getMain().getTemp_max(), TemperatureConverter.kelvinToCelsius));
         return openWeatherMapResponse;
     }
 
