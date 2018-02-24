@@ -1,10 +1,24 @@
- 1. Crie um endpoint para retornar informações sobre o serviço
+# iFood Backend Basic Test
+
+Este é um projeto base para demonstração de um micro-serviço RESTful fictício.
+
+Recomenda-se gastar entre 4 a 6 horas para realizar essas tarefas. As duas primeiras são as mais importantes, 
+enquanto que as duas últimas são opcionais, para quem conseguir terminar antes do previsto.
+
+Esse projeto foi iniciado a partir do [Spring Initializr][SpringInitializr]. É o boilerplate padrão do Spring  
+com [Spring Boot][SpringBoot] 1.5.2 (torna o micro-serviço executável, sem necessidade de deploy para um servidor).
+
+Crie um *fork* deste repositório e siga as tarefas abaixo.
+
+## Tarefas
+
+### 1. Crie um endpoint para retornar informações sobre o serviço
 
 Para testar rapidamente se nosso serviço está funcionando, crie na classe `About` um endpoint `GET /about` que retorna
 uma mensagem confirmando que nosso serviço está funcionando e recebendo requisições.
 
 
- 2. Integração com OpenWeatherMap
+### 2. Integração com OpenWeatherMap
 
 Vamos usar o OpenWeatherMap para obter informações do clima de uma cidade.
 
@@ -20,14 +34,14 @@ Sugestão: Pesquise alguma biblioteca de requisições HTTP robusta, que trate e
 automaticamente. 
 
 
-3. Cache
+### 3. Cache
 
 Pesquise alguma biblioteca de cache para tornar nosso micro-serviço mais rápido.
 
 Adicione cache na chamada ao servidor do OpenWeatherMaps.
 
 
-4. Tolerância a falhas
+### 4. Tolerância a falhas
 
 Se por algum motivo o serviço do OpenWeatherMaps estiver indisponível, não deveríamos deixar que nosso micro-serviço 
 seja afetado.
